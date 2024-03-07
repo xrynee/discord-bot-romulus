@@ -20,14 +20,16 @@ export class RemoveRoleFromUserCommand implements ICommand {
         if (!group) {
             return;
         }
-        await interaction.member.removeRole(group.role.id);
+
+        if (interaction.member.roles.includes(group.role.id)) {
+            await interaction.member.removeRole(group.role.id);
+        }
         // await this.client.editGuildMember(interaction.guildID, interaction.member.id, {
         //     roles: interaction.member.roles.filter(r => r !== group.role.id)
         // });
 
         await interaction.acknowledge();
         await Global.refresh(interaction.guildID);
-        // await interaction.;
     }
 
     public isHandledBy(event: any): boolean {

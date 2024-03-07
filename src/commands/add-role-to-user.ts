@@ -20,7 +20,10 @@ export class AddRoleToUserCommand implements ICommand {
         if (!group) {
             return;
         }
-        await interaction.member.addRole(group.role.id);
+
+        if (!interaction.member.roles.includes(group.role.id)) {
+            await interaction.member.addRole(group.role.id);
+        }
 
         await interaction.acknowledge();
 
